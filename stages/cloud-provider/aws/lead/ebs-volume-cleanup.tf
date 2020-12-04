@@ -1,5 +1,5 @@
 module "ebs_volume_cleanup" {
   source                           = "../../../../modules/environment/aws/ebs-volume-cleanup"
-  region                           = var.region
+  cluster                          = var.cluster_name
   count                            = var.enable_ebs_count ? 1 : 0
 }
