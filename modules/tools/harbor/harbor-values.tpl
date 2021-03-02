@@ -33,9 +33,15 @@ persistence:
       accessMode: ReadWriteOnce
       size: ${jobservice_pvc_size}
     database:
+      %{~ if db_existing_claim == "" ~}
       storageClass: ${storage_class}
       accessMode: ReadWriteOnce
       size: ${database_pvc_size}
+      %{~ else }
+      existingClaim: ${db_existing_claim}
+      accessMode: ReadWriteOnce
+      %{~ endif }
+
     redis:
       storageClass: ${storage_class}
       accessMode: ReadWriteOnce
@@ -46,7 +52,7 @@ persistence:
       rootdirectory: /storage
 
 updateStrategy:
-  type: RollingUpdate
+  type: Recreate
 
 logLevel: info
 
