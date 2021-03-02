@@ -45,6 +45,11 @@ resource "helm_release" "harbor_config" {
   }
 
   set {
+    name = "persistence.persistentVolumeClaim.database.existingClaim"
+    value = var.db_existing_claim
+  }
+
+  set {
     name  = "keycloak.hostname"
     value = var.keycloak_hostname
   }
