@@ -15,6 +15,7 @@ module "harbor" {
   harbor_chartmuseum_disk_size = "100Gi"
   issuer_name                  = module.cluster_issuer.issuer_name
   issuer_kind                  = module.cluster_issuer.issuer_kind
+  db_existing_claim            = var.db_existing_claim
 
   depends_on = [
     module.cert_manager

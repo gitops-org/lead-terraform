@@ -207,3 +207,7 @@ variable "vault_dynamodb_table_name" {
 
 variable "vault_kms_key_id" {
 }
+
+variable "db_existing_claim" {
+  default = ""
+}
