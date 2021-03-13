@@ -66,7 +66,7 @@ resource "helm_release" "jenkins" {
   repository = "https://charts.jenkins.io"
   namespace  = module.toolchain_namespace.name
   timeout    = "600"
-  version    = "1.6.0"
+  version    = "3.2.2"
 
   set_sensitive {
     name  = "master.adminPassword"
