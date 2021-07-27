@@ -25,8 +25,8 @@ module "vault_operator_init" {
   source  = "matti/resource/shell"
   version = "1.3.0"
 
-  command              = "kubectl exec -it -n ${var.namespace} vault-0 -- vault operator init -format=json | jq -rc '.root_token'"
-  command_when_destroy = ""
+  command = "kubectl exec -it -n ${var.namespace} vault-0 -- vault operator init -format=json | jq -rc '.root_token'"
+
   depends = [
     helm_release.vault.id
   ]
