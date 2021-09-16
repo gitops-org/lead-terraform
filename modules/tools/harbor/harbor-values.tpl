@@ -66,7 +66,11 @@ portal:
   tolerations: []
   affinity: {}
   ## Additional deployment annotations
-  podAnnotations: {}
+  podAnnotations:
+    "kube-monkey/enabled": "enabled"
+    "kube-monkey/identifier": "monkey-victim"
+    "kube-monkey/mtbf": "0"
+    "kube-monkey/kill-mode": "kill-all"
 
 core:
   image:
@@ -87,12 +91,12 @@ core:
   tolerations: []
   affinity: {}
   ## Additional deployment annotations
-  podAnnotations: {
-    kube-monkey/enabled: enabled
-    kube-monkey/identifier: monkey-victim
-    kube-monkey/mtbf: '0'
-    kube-monkey/kill-mode: "kill-all"
-  }
+  podAnnotations:
+    "kube-monkey/enabled": "enabled"
+    "kube-monkey/identifier": "monkey-victim"
+    "kube-monkey/mtbf": "0"
+    "kube-monkey/kill-mode": "fixed"
+    "kube-monkey/kill-value": "1"
 
 jobservice:
   image:
@@ -113,7 +117,12 @@ jobservice:
   tolerations: []
   affinity: {}
   ## Additional deployment annotations
-  podAnnotations: {}
+  podAnnotations:
+    "kube-monkey/enabled": "enabled"
+    "kube-monkey/identifier": "monkey-victim"
+    "kube-monkey/mtbf": "0"
+    "kube-monkey/kill-mode": "fixed"
+    "kube-monkey/kill-value": "1"
 
 registry:
   registry:
@@ -144,7 +153,12 @@ registry:
   tolerations: []
   affinity: {}
   ## Additional deployment annotations
-  podAnnotations: {}
+  podAnnotations:
+    "kube-monkey/enabled": "enabled"
+    "kube-monkey/identifier": "monkey-victim"
+    "kube-monkey/mtbf": "0"
+    "kube-monkey/kill-mode": "fixed"
+    "kube-monkey/kill-value": "1"
   # If true, the registry returns relative URLs in Location headers. The client is responsible for resolving the correct URL.
   relativeurls: false
   middleware:

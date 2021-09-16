@@ -11,3 +11,6 @@ config:
   blacklistedNamespaces: [ "kube-system", "monitoring" ]
   whitelistedNamespaces: [ "toolchain" ]
   timeZone: ${timezone}
+args:
+  logLevel: 5
+  logDir: /var/log/kube-monkey

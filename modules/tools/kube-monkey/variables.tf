@@ -18,5 +18,5 @@ variable "end_hour" {
   default = 21
 }
 variable "timezone" {
-  default = "America/New_York"
+  default = "America/Los_Angeles"
 }
