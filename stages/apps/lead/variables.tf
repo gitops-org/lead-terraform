@@ -107,6 +107,10 @@ variable "enable_kibana_ingress" {
   default = false
 }
 
+variable "enable_kube_monkey" {
+  default = false
+}
+
 variable "sparky_mattermost_version" {
   default = "v0.1.0"
 }

@@ -87,7 +87,13 @@ core:
   tolerations: []
   affinity: {}
   ## Additional deployment annotations
-  podAnnotations: {}
+  podAnnotations: {
+    kube-monkey/enabled: enabled
+    kube-monkey/identifier: monkey-victim
+    kube-monkey/mtbf: '0'
+    kube-monkey/kill-mode: "kill-all"
+  }
+
 jobservice:
   image:
     repository: goharbor/harbor-jobservice
