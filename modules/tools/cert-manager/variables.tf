@@ -5,3 +5,7 @@ variable "namespace" {
 variable "cert_manager_service_account_role_arn" {
   default = ""
 }
+
+variable "install_crds" {
+  default = true
+}
