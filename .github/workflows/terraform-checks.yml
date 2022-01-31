@@ -1,4 +1,4 @@
-name: "Terraform Code Quality"
+name: "Terraform Checks"
 
 on:
   pull_request:
@@ -74,6 +74,22 @@ jobs:
       - name: Terraform Format
         run: terraform fmt -check -recursive
 
+  terraform_sec:
+    name: "Security Scan"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      # - name: Setup Terraform
+      #   uses: hashicorp/setup-terraform@v1
+
       - name: Run tfsec with reviewdog
         uses: reviewdog/action-tfsec@v1.11.0
         if: ${{ always() }}
@@ -84,6 +100,22 @@ jobs:
           filter_mode: "nofilter"
           tfsec_flags: "-e general-secrets-sensitive-in-variable,general-secrets-sensitive-in-local,general-secrets-sensitive-in-attribute"
 
+  terraform_lint:
+    name: "Lint"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      # - name: Setup Terraform
+      #   uses: hashicorp/setup-terraform@v1
+
       - name: Run tflint with reviewdog
         uses: reviewdog/action-tflint@v1.13.0
         if: ${{ always() }}
@@ -91,3 +123,29 @@ jobs:
           github_token: ${{ secrets.github_token }}
           fail_on_error: "true"
           filter_mode: "nofilter"
+
+  terraform_lock:
+    name: "Lint"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    needs: discover_stages
+    strategy:
+        # ↓ create dynamic matrix from the json
+        matrix:
+          validate: ${{ fromJson(needs.discover_stages.outputs.matrix) }}
+
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+      
+      - name: Validate
+        env:
+          FOLDER: ${{ matrix.validate }}
+        run: cd $FOLDER && terraform providers lock -platform=darwin_amd64 -platform=linux_amd64
